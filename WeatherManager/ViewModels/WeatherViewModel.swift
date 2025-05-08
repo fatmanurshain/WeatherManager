@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUICore
 
 class WeatherViewModel: ObservableObject {
     @Published var weather: WeatherModel?
@@ -30,4 +31,24 @@ class WeatherViewModel: ObservableObject {
             }
         }
     }
+    
+    var backgroundColor: Color {
+        guard let description = weather?.description.lowercased() else {
+            return Color.gray
+        }
+
+        if description.contains("clear") {
+            return Color.blue
+        } else if description.contains("cloud") {
+            return Color.cyan
+        } else if description.contains("rain") || description.contains("drizzle") {
+            return Color.blue.opacity(0.5)
+        } else if description.contains("snow") {
+            return Color.white
+        } else {
+            return Color.gray
+        }
+    }
+
+
 }
